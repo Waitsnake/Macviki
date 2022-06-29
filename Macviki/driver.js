@@ -166,15 +166,17 @@
         
         // Fix Full screen mode key detection
 
-        HTMLDocument.prototype.fullscreenEnabled = true;
+        HTMLDocument.prototype.fullscreenElement = false;
 
         HTMLElement.prototype.requestFullscreen = function() {
             window.webkit.messageHandlers.requestFullscreen.postMessage(null)
+            HTMLDocument.prototype.fullscreenElement = true;
             return new Promise(function(resolve) { resolve(); });
         };
 
         HTMLDocument.prototype.exitFullscreen = function() {
             window.webkit.messageHandlers.requestFullscreen.postMessage(null)
+            HTMLDocument.prototype.fullscreenElement = false;
             return new Promise(function(resolve) { resolve(); });
         };
 
