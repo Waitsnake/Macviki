@@ -6,10 +6,24 @@ class RootView: NSView {
     // the responder chain not including the window when the app is not focused.
     override func mouseExited(with event: NSEvent) {
         (window?.windowController as? WindowController)?.phaseIn()
+        // disable menu buttons if window is left by mouse (only in normal mode (not goht or fullscreen)
+        if ((window?.windowController as? WindowController)?.fullScr == false && (window?.windowController as? WindowController)?.avoidance == .off)
+        {
+            window?.standardWindowButton(.closeButton)?.isHidden = true
+            window?.standardWindowButton(.miniaturizeButton)?.isHidden = true
+            window?.standardWindowButton(.zoomButton)?.isHidden = true
+        }
     }
     
     override func mouseEntered(with event: NSEvent) {
         (window?.windowController as? WindowController)?.phaseOut()
+        // enable menu buttons if window is left by mouse (only in normal mode (not goht or fullscreen)
+        if ((window?.windowController as? WindowController)?.fullScr == false && (window?.windowController as? WindowController)?.avoidance == .off)
+        {
+            window?.standardWindowButton(.closeButton)?.isHidden = false
+            window?.standardWindowButton(.miniaturizeButton)?.isHidden = false
+            window?.standardWindowButton(.zoomButton)?.isHidden = false
+        }
     }
     
     override func updateTrackingAreas() {

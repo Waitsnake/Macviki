@@ -19,6 +19,8 @@ protocol Avoider {
 }
 
 class WindowController: NSWindowController, NSWindowDelegate, Avoider {
+    public var fullScr = false
+    
 //    var avoidanceDelegate: AvoidanceDelegate?
     var avoidance: Avoidance = .off {
         didSet {

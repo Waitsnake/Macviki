@@ -1,7 +1,6 @@
 import Cocoa
 
 class MainWindow: NSWindow {
-    var fullScr = false
     
     // Catches the build-in menuitems.
     // Use AppDelegate.validateMenuItem to catch custom menuitems.
@@ -18,10 +17,10 @@ class MainWindow: NSWindow {
         (windowController as? WindowController)?.avoidance = .off
         super.toggleFullScreen(sender)
         
-        if fullScr == true
+        if (windowController as? WindowController)?.fullScr == true
         {
             // disable title bar in window mode
-            fullScr = false
+            (windowController as? WindowController)?.fullScr = false
             titleVisibility = .hidden
             titlebarAppearsTransparent = true
             standardWindowButton(.closeButton)?.isHidden = true
@@ -31,7 +30,7 @@ class MainWindow: NSWindow {
         else
         {
             // enable title bar in full screen to avoid this white bar that pops in when moving mouse to the top of screen
-            fullScr = true
+            (windowController as? WindowController)?.fullScr = true
             titleVisibility = .visible
             titlebarAppearsTransparent = false
             standardWindowButton(.closeButton)?.isHidden = false

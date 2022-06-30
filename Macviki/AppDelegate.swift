@@ -242,4 +242,28 @@ class DraggableWebView: WKWebView {
         }
         super.mouseUp(with: event)
     }
+    
+    override func mouseMoved(with event: NSEvent) {
+        // forward mouse over events only in normal mode (disable them in ghost mode)
+        if (window?.windowController as? WindowController)?.avoidance == .off
+        {
+            super.mouseMoved(with: event)
+        }
+    }
+    
+    override func mouseExited(with event: NSEvent) {
+        // forward mouse over events only in normal mode (disable them in ghost mode)
+        if (window?.windowController as? WindowController)?.avoidance == .off
+        {
+            super.mouseExited(with: event)
+        }
+    }
+    
+    override func mouseEntered(with event: NSEvent) {
+        // forward mouse over events only in normal mode (disable them in ghost mode)
+        if (window?.windowController as? WindowController)?.avoidance == .off
+        {
+            super.mouseEntered(with: event)
+        }
+    }
 }
