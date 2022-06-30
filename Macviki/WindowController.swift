@@ -20,6 +20,29 @@ protocol Avoider {
 
 class WindowController: NSWindowController, NSWindowDelegate, Avoider {
     public var fullScr = false
+    public var tileScr = false
+    
+    // needed to detect and handle enter of tile mode (kind of half full screen)
+    func windowDidEnterFullScreen (_ notification: Notification) {
+        if fullScr == false
+        {
+            // enable title bar in full screen to avoid this white bar that pops in when moving mouse to the top of screen
+            window!.titleVisibility = .visible
+            window!.titlebarAppearsTransparent = false
+            window!.standardWindowButton(.closeButton)?.isHidden = false
+            window!.standardWindowButton(.miniaturizeButton)?.isHidden = false
+            window!.standardWindowButton(.zoomButton)?.isHidden = false
+            
+            // always phase-in in case off going to fullscreen to avoid cases of phase-out
+            window!.isOpaque = true
+            window!.alphaValue = 1.0
+            window!.backgroundColor = NSColor.windowBackgroundColor
+            window!.hasShadow = true
+            window!.ignoresMouseEvents = false
+            
+            tileScr = true
+        }
+    }
     
 //    var avoidanceDelegate: AvoidanceDelegate?
     var avoidance: Avoidance = .off {
