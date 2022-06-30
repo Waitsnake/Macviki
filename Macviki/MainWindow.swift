@@ -37,7 +37,7 @@ class MainWindow: NSWindow {
             standardWindowButton(.miniaturizeButton)?.isHidden = false
             standardWindowButton(.zoomButton)?.isHidden = false
             
-            // always phase in in case off going to fullscreen to avoid cases of phase out
+            // always phase-in in case off going to fullscreen to avoid cases of phase-out
             isOpaque = true
             alphaValue = 1.0
             backgroundColor = NSColor.windowBackgroundColor

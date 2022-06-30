@@ -122,6 +122,38 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     @IBAction func toggleHideOnHover(_ sender: Any) {
         let newAvoidance: Avoidance = windowController.avoidance == .off ? .ghost : .off
         windowController.avoidance = newAvoidance
+        if windowController.avoidance == .off
+        {
+            // always phase-in in case off disabling ghost mode to avoid cases of phase-out
+            window.isOpaque = true
+            window.alphaValue = 1.0
+            window.backgroundColor = NSColor.windowBackgroundColor
+            window.hasShadow = true
+            window.ignoresMouseEvents = false
+            
+            // when mouse already over window when ghost is de-activated then show buttons
+            
+            
+            if(window?.contentView?.isMousePoint(window.mouseLocationOutsideOfEventStream, in: window?.contentView!.frame ?? NSRect()) == true)
+            {
+                window.standardWindowButton(.closeButton)?.isHidden = false
+                window.standardWindowButton(.miniaturizeButton)?.isHidden = false
+                window.standardWindowButton(.zoomButton)?.isHidden = false
+            }
+        }
+        else
+        {
+            // hide buttons when in ghost mode is activated
+            window.standardWindowButton(.closeButton)?.isHidden = true
+            window.standardWindowButton(.miniaturizeButton)?.isHidden = true
+            window.standardWindowButton(.zoomButton)?.isHidden = true
+            
+            // when mouse already over window when ghost is activated then phase out
+            if(window?.contentView?.isMousePoint(window.mouseLocationOutsideOfEventStream, in: window?.contentView!.frame ?? NSRect()) == true)
+            {
+                windowController.phaseOut()
+            }
+        }
     }
     
     func onUrlChange(path: String) {

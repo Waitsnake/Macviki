@@ -6,7 +6,7 @@ class RootView: NSView {
     // the responder chain not including the window when the app is not focused.
     override func mouseExited(with event: NSEvent) {
         (window?.windowController as? WindowController)?.phaseIn()
-        // disable menu buttons if window is left by mouse (only in normal mode (not goht or fullscreen)
+        // disable menu buttons if window is left by mouse (only in normal mode (not ghost or fullscreen)
         if ((window?.windowController as? WindowController)?.fullScr == false && (window?.windowController as? WindowController)?.avoidance == .off)
         {
             window?.standardWindowButton(.closeButton)?.isHidden = true
@@ -17,7 +17,7 @@ class RootView: NSView {
     
     override func mouseEntered(with event: NSEvent) {
         (window?.windowController as? WindowController)?.phaseOut()
-        // enable menu buttons if window is left by mouse (only in normal mode (not goht or fullscreen)
+        // enable menu buttons if window is entered by mouse (only in normal mode (not ghost or fullscreen)
         if ((window?.windowController as? WindowController)?.fullScr == false && (window?.windowController as? WindowController)?.avoidance == .off)
         {
             window?.standardWindowButton(.closeButton)?.isHidden = false
