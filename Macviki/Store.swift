@@ -10,7 +10,7 @@ struct Store {
     // Only saving /browser and /watch/:num
     static func saveUrl(_ input: String) {
         var path = parsePath(input)
-        path = path.hasPrefix("/v1/explore") || path.hasPrefix("/videos/") ? path : Util.defaultPath
+        path = path.hasPrefix("/watchlist") || path.hasPrefix("/videos/") ? path : Util.defaultPath
         //print("Store.saveurl input=\(input) path=\(path)")
         common.set(path, forKey: "latestUrl")
     }
