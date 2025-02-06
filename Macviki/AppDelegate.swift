@@ -64,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         webView = DraggableWebView(frame: window.frame, configuration: config)
         webView.uiDelegate = self
         webView.navigationDelegate = self
-        webView.customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15"
+        webView.customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15"
         window.contentView?.addSubview(webView)
         
         webView.translatesAutoresizingMaskIntoConstraints = false
