@@ -56,6 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
+        config.preferences.isElementFullscreenEnabled = false
         config.userContentController.add(self, name: "onPushState")
         config.userContentController.add(self, name: "onConsoleLog")
         config.userContentController.add(self, name: "requestFullscreen")
