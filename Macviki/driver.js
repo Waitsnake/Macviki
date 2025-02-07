@@ -20,6 +20,11 @@
             console.log('mounting...')
         }
 
+        // workaround: try to remove once per each secound the annoying viki pause overlay
+        setInterval(function() {
+            document.getElementsByClassName("vmp-pause-overlay")[0]?.remove();
+        }, 1000);
+        
         // Makes necessary changes to the DOM and then returns functions that depend on those mutations
         // to drive Netflix.
 
