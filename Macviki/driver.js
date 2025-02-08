@@ -19,49 +19,27 @@
         } else {
             console.log('mounting...')
         }
+        
+        ////////////////////////////////////////////////////////////
 
-        // workaround: try once per each secound
+        // workaround: try install once per each sec (was not working on url change event?)
         setInterval(function() {
-            // remove the annoying viki pause overlay
-            document.getElementsByClassName("vmp-pause-overlay")[0]?.remove();
-            
-            // add a onclick function to HTML5 fullscreen button that transmit event to swift code
-            document.getElementsByClassName("vjs-icon-fullscreen-enter")[0]?.setAttribute('onclick','window.webkit.messageHandlers.requestFullscreen.postMessage(null)')
+            // we only do changes once we on the videos page
+            if (location.pathname.startsWith('/videos/')) {
+                // REMOVE ANNOYING VIDEO PAUSE OVERLAY
+                document.getElementsByClassName("vmp-pause-overlay")[0]?.remove();
+                
+                // DETECT ONCLICK ON FULLSCREEN BUTTON
+                document.getElementsByClassName("vjs-icon-fullscreen-enter")[0]?.setAttribute('onclick','window.webkit.messageHandlers.requestFullscreen.postMessage(null)')
+            }
         }, 1000);
         
-        // Makes necessary changes to the DOM and then returns functions that depend on those mutations
-        // to drive Netflix.
+        ////////////////////////////////////////////////////////////
+        
+        // some helper query functions (not used at the moment)
 
         const qs = (...args) => document.querySelector(...args)
         const qsa = (...args) => document.querySelectorAll(...args)
-
-
-        // Walks entirety of an html node's downstream tree and
-        // returns Set of <video> nodes it finds.
-        //
-        // root is node | null
-        // found is Set of matching nodes
-        function crawlNode(root, found = new Set()) {
-            const predicate = (node) => node && node.tagName === 'VIDEO'
-            if (!root || !root.childNodes) {
-                return found
-            }
-            if (predicate(root)) {
-                found.add(root)
-            }
-            return Array.from(root.childNodes).reduce((acc, node) => {
-                if (predicate(node)) {
-                    return crawlNode(node, new Set([...acc, node]))
-                } else {
-                    return crawlNode(node, acc)
-                }
-            }, found)
-        }
-
-        // This version takes an array of nodes
-        function crawlNodes(roots) {
-            return Array.from(roots).reduce((acc, node) => crawlNode(node, acc), new Set())
-        }
 
         ////////////////////////////////////////////////////////////
 
