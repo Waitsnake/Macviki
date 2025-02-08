@@ -63,82 +63,19 @@
             return Array.from(roots).reduce((acc, node) => crawlNode(node, acc), new Set())
         }
 
-        // mutation observer handler that walks all addedNodes + children looking
-        // for added <video>s.
-        //
-        // FIXME: adds listeners to <video>s but never removes them.
-        function videoFinder(muts) {
-            for (const mut of muts) {
-                const videos = crawlNodes(mut.addedNodes)
-                if (location.pathname.startsWith('/videos/')) {
-                    // If we are watching a show, get the dimensions of the video when it loads.
-                    for (const video of videos) {
-                        if (video.readyState === HTMLMediaElement.HAVE_NOTHING) {
-                            // FIXME: mem leak
-                            video.addEventListener(
-                                'loadedmetadata',
-                                (e) => {
-                                    const { videoWidth: width, videoHeight: height } = video
-                                    onPrimaryVideoFound({ width, height })
-                                },
-                                { once: true }
-                            )
-                        } else {
-                            const { videoWidth: width, videoHeight: height } = video
-                            onPrimaryVideoFound({ width, height })
-                        }
-                    }
-                } else {
-                    // We aren't watching a show, so autopause all videos as they spawn.
-                    for (const video of videos) {
-                        if (video.readyState === HTMLMediaElement.HAVE_NOTHING) {
-                            video.src = ''
-                        } else {
-                            // Should just nuke src here too, it seems to work so well.
-                            video.pause()
-                        }
-                    }
-                }
-            }
-        }
-        const observer = new MutationObserver(videoFinder)
-        observer.observe(document.body, {
-            attributes: false,
-            childList: true,
-            characterData: false,
-            subtree: true,
-        })
-
         ////////////////////////////////////////////////////////////
 
-        // dims is { width, height } or null
-        function onPrimaryVideoFound(dims) {
-            console.log('onPrimaryVideoFound', dims)
-            window.webkit.messageHandlers.onVideoDimensions.postMessage(dims)
-        }
-
+        // DETECT URL CHANGE
+        
         function handleUrlChange(path) {
             const message = { url: path }
+            console.log('handleUrlChange ', path)
             window.webkit.messageHandlers.onPushState.postMessage(message)
-            if (path.startsWith('/videos/')) {
-                // declutter control bar
-                const reportButton = qs('.button-nfplayerReportAProblem')
-                if (reportButton) reportButton.style.display = 'none'
-            } else {
-                // clear aspect ratio when we aren't in /watch
-                onPrimaryVideoFound(null)
-            }
         }
-
-
-        // DETECT URL CHANGE
-
-        // TODO: clean up. i got superstitious and added a redundant handler.
-        history.onpopstate = () => handleUrlChange(location.pathname)
-        window.onpopstate = () => handleUrlChange(location.pathname)
 
         const pushState = history.pushState
         history.pushState = (...args) => {
+            console.log('history.pushState')
             const [state, title, url] = args
             if (typeof history.onpushstate === 'function') {
                 history.onpushstate(...args)

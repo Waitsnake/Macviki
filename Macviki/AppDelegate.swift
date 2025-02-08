@@ -60,7 +60,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         config.userContentController.add(self, name: "onPushState")
         config.userContentController.add(self, name: "onConsoleLog")
         config.userContentController.add(self, name: "requestFullscreen")
-        config.userContentController.add(self, name: "onVideoDimensions")
         
         webView = DraggableWebView(frame: window.frame, configuration: config)
         webView.uiDelegate = self
@@ -182,16 +181,6 @@ extension AppDelegate: WKScriptMessageHandler {
         } else if message.name == "requestFullscreen" {
             print("should be toggling fullscreen...")
             window.toggleFullScreen(nil)
-        } else if message.name == "onVideoDimensions"  {
-            let dict = message.body as? [String: Int] ?? nil
-            var dims: NSSize? = nil
-            if let width = dict?["width"], let height = dict?["height"] {
-                dims = NSSize(width: width, height: height)
-            }
-            if window.aspectRatio != dims {
-                print("-- VIDEO DIMS UPDATED", dims as Any)
-                windowController.setAspectRatio(dims)
-            }
         } else {
             print("unhandled js message: \(message.name) \(message.body)")
         }
