@@ -7,12 +7,6 @@ enum Avoidance {
     //case teleport
 }
 
-//protocol AvoidanceDelegate: class {
-//    var avoidance: Avoidance? { get set }
-//    func mouseEnteredGlobally()
-//    func mouseExitedGlobally()
-//}
-
 protocol Avoider {
     func phaseOut()
     func phaseIn()
@@ -44,7 +38,6 @@ class WindowController: NSWindowController, NSWindowDelegate, Avoider {
         }
     }
     
-//    var avoidanceDelegate: AvoidanceDelegate?
     var avoidance: Avoidance = .off {
         didSet {
             // Update AppDelegate menu state whenever avoidance is updated.

@@ -35,25 +35,6 @@
         const qs = (...args) => document.querySelector(...args)
         const qsa = (...args) => document.querySelectorAll(...args)
 
-        // REMOVE STICKY HEADER
-
-        // Nuke the fixed header since we're likely using a small viewport.
-        const homepageHeaderNode = qs('.pinning-header-container')
-        if (homepageHeaderNode) {
-            const stickyHeaderObserver = new MutationObserver((muts) => {
-                for (const mut of muts) {
-                    const header = mut.target
-                    header.style.backgroundColor = 'transparent'
-                    if (header.style.position === 'fixed') {
-                        header.style.position = 'relative'
-                    }
-                }
-            })
-            stickyHeaderObserver.observe(homepageHeaderNode, {
-                attributeFilter: ['style'],
-                attributes: true,
-            })
-        }
 
         // Walks entirety of an html node's downstream tree and
         // returns Set of <video> nodes it finds.
@@ -149,45 +130,6 @@
             }
         }
 
-        // STYLE MOUNT POINTS
-        // TODO: Clean up
-
-        const style = document.createElement('style')
-        style.id = 'foo'
-        document.head.appendChild(style)
-
-        const style2 = document.createElement('style')
-        style2.id = 'foo2'
-        document.head.appendChild(style2)
-
-        // Handle fullscreen click
-        //document.addEventListener(
-        //    'click',
-        //    (e) => {
-        //        if (e.target.classList.contains('button-nfplayerFullscreen')) {
-        //            e.preventDefault()
-        //            e.stopPropagation()
-        //            window.webkit.messageHandlers.requestFullscreen.postMessage(null)
-        //        }
-        //    },
-        //    true
-        //)
-        
-        // Fix Full screen mode key detection
-
-        HTMLDocument.prototype.fullscreenElement = false;
-
-        HTMLElement.prototype.requestFullscreen = function() {
-            window.webkit.messageHandlers.requestFullscreen.postMessage(null)
-            HTMLDocument.prototype.fullscreenElement = true;
-            return new Promise(function(resolve) { resolve(); });
-        };
-
-        HTMLDocument.prototype.exitFullscreen = function() {
-            window.webkit.messageHandlers.requestFullscreen.postMessage(null)
-            HTMLDocument.prototype.fullscreenElement = false;
-            return new Promise(function(resolve) { resolve(); });
-        };
 
         // DETECT URL CHANGE
 
@@ -203,59 +145,6 @@
             }
             handleUrlChange(url)
             return pushState.apply(history, args)
-        }
-
-        return {
-            adjustPlaybackSpeed(delta) {
-                if (!location.pathname.startsWith('/watch/')) return
-                const video = qs('video')
-                if (!video) return
-                video.playbackRate += delta
-            },
-            nextEpidode() {
-                const button = qs('.button-nfplayerNextEpisode')
-                if (button) button.click()
-            },
-            bumpForward() {
-                const button = qs('.button-nfplayerFastForward')
-                if (button) button.click()
-            },
-            bumpBackward() {
-                const button = qs('.button-nfplayerBackTen')
-                if (button) button.click()
-            },
-            playVideo() {
-                const button = qs('.button-nfplayerPlay')
-                if (button) button.click()
-            },
-            pauseVideo() {
-                const button = qs('.button-nfplayerPause')
-                if (button) button.click()
-            },
-            fullscreenVideo() {
-                const button = document.querySelector('.button-nfplayerFullscreen')
-                if (button) button.click()
-            },
-            toggleVideoPlayback() {
-                const button = qs('.button-nfplayerPlay') || qs('.button-nfplayerPause')
-                if (button) button.click()
-            },
-            toggleSubtitleVisibility(isVisible) {
-                const style = qs('#foo2')
-                style.innerHTML = `
-                .player-timedtext-text-container {
-                display: ${isVisible ? 'block' : 'none'} !important;
-                }
-                `
-            },
-            setSubSize(pixels) {
-                const style = qs('#foo')
-                style.innerHTML = `
-                .player-timedtext-text-container span[style] {
-                    font-size: ${pixels}px !important;
-                }
-                `
-            },
         }
     }
 })()
