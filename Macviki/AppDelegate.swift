@@ -6,6 +6,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     var window: MainWindow!
     var webView: DraggableWebView!
     var windowController = WindowController()
+    var fullscr: Bool!
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard let action = menuItem.action else { return false }
@@ -82,6 +83,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(updateAlwaysTopMenuItem), name: .alwaysTopNotification, object: nil)
         updateAlwaysTopMenuItem()
+        
+        fullscr = false
+        NotificationCenter.default.addObserver(self, selector: #selector(enterFullscreen), name: NSWindow.didEnterFullScreenNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(exitFullscreen), name: NSWindow.didExitFullScreenNotification, object: nil)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -105,6 +110,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     // Update the UI
     @objc func updateAlwaysTopMenuItem() {
         alwaysTopMenuItem.state = Store.isAlwaysTop ? .on : .off
+    }
+    
+    // enter fullscreen
+    @objc func enterFullscreen() {
+        webView.evaluateJavaScript("document.getElementsByClassName(\"vjs-icon-fullscreen-enter\")[0]?.setAttribute('class','vjs-icon-fullscreen-exit')") { (result, error) in
+            if error == nil {
+                print(result as Any)
+            }
+        }
+        fullscr = true
+    }
+    
+    // exit fullscreen
+    @objc func exitFullscreen() {
+        webView.evaluateJavaScript("document.getElementsByClassName(\"vjs-icon-fullscreen-exit\")[0]?.setAttribute('class','vjs-icon-fullscreen-enter')") { (result, error) in
+            if error == nil {
+                print(result as Any)
+            }
+        }
+        fullscr = false
     }
     
     @IBAction func fixWatchError(_ sender: Any) {
@@ -163,6 +188,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             windowController.setAspectRatio(nil)
         }
         Store.saveUrl(path)
+        if path.hasPrefix("/videos/") {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
+                if (self.fullscr)
+                {
+                    self.webView.evaluateJavaScript("document.getElementsByClassName(\"vjs-icon-fullscreen-enter\")[0]?.setAttribute('class','vjs-icon-fullscreen-exit')") { (result, error) in
+                        if error == nil {
+                            print(result as Any)
+                        }
+                    }
+                }
+                else
+                {
+                    self.webView.evaluateJavaScript("document.getElementsByClassName(\"vjs-icon-fullscreen-exit\")[0]?.setAttribute('class','vjs-icon-fullscreen-enter')") { (result, error) in
+                        if error == nil {
+                            print(result as Any)
+                        }
+                    }
+                }
+            })
+        }
     }
 }
 
