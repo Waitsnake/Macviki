@@ -20,9 +20,13 @@
             console.log('mounting...')
         }
 
-        // workaround: try to remove once per each secound the annoying viki pause overlay
+        // workaround: try once per each secound
         setInterval(function() {
+            // remove the annoying viki pause overlay
             document.getElementsByClassName("vmp-pause-overlay")[0]?.remove();
+            
+            // add a onclick function to HTML5 fullscreen button that transmit event to swift code
+            document.getElementsByClassName("vjs-icon-fullscreen-enter")[0]?.setAttribute('onclick','window.webkit.messageHandlers.requestFullscreen.postMessage(null)')
         }, 1000);
         
         // Makes necessary changes to the DOM and then returns functions that depend on those mutations
