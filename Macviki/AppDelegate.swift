@@ -93,6 +93,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         // Insert code here to tear down your application
     }
     
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        // remove menu "show tab bar"
+        NSWindow.allowsAutomaticWindowTabbing = false
+    }
+    
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
