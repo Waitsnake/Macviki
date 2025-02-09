@@ -81,7 +81,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         let initUrl = URL(string: "https://www.viki.com" + Store.getUrl())!
         webView.load(URLRequest(url: initUrl))
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(updateAlwaysTopMenuItem), name: .alwaysTopNotification, object: nil)
         updateAlwaysTopMenuItem()
         
         fullscr = false
