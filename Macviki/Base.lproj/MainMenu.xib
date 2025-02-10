@@ -82,6 +82,33 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Edit" id="Sme-EA-jiX">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Edit" id="JvJ-mf-lfn">
+                        <items>
+                            <menuItem title="Cut" keyEquivalent="x" id="dmL-Ug-Ngm">
+                                <connections>
+                                    <action selector="cut:" target="-1" id="YCA-MG-Ird"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Copy" keyEquivalent="c" id="W2w-wF-CdN">
+                                <connections>
+                                    <action selector="copy:" target="-1" id="Uxs-cK-gsm"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Paste" keyEquivalent="v" id="UWr-wJ-X2U">
+                                <connections>
+                                    <action selector="paste:" target="-1" id="fBf-N2-Yea"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Select All" keyEquivalent="a" id="lA2-YP-ShG">
+                                <connections>
+                                    <action selector="selectAll:" target="-1" id="dQu-me-E74"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="View" id="H8h-7b-M4v">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="HyV-fh-RgO">
