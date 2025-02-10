@@ -136,8 +136,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         fullscr = false
     }
     
-    @IBAction func fixWatchError(_ sender: Any) {
+    @IBAction func clearWebsiteData(_ sender: Any) {
+        let initUrl = "https://www.viki.com"
+        Store.saveUrl(initUrl)
         let types = Set([
+            WKWebsiteDataTypeSessionStorage,
+            WKWebsiteDataTypeCookies,
             WKWebsiteDataTypeIndexedDBDatabases,
             WKWebsiteDataTypeLocalStorage
         ])

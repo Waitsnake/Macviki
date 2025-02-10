@@ -23,7 +23,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Macviki 2025 waitsnake. / Copyright Macflix © 2019 danneu. All rights reserved.</string>
+	<string>Copyright Macflix © 2019 danneu. All rights reserved. / MacViki 2025 waitsnake.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

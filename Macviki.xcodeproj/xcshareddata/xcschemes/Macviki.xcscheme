@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D9DE871F225A79A40020A582"
-               BuildableName = "Macviki.app"
-               BlueprintName = "Macviki"
+               BuildableName = "MacViki.app"
+               BlueprintName = "MacViki"
                ReferencedContainer = "container:Macviki.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D9DE871F225A79A40020A582"
-            BuildableName = "Macviki.app"
-            BlueprintName = "Macviki"
+            BuildableName = "MacViki.app"
+            BlueprintName = "MacViki"
             ReferencedContainer = "container:Macviki.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,8 +69,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D9DE871F225A79A40020A582"
-            BuildableName = "Macviki.app"
-            BlueprintName = "Macviki"
+            BuildableName = "MacViki.app"
+            BlueprintName = "MacViki"
             ReferencedContainer = "container:Macviki.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

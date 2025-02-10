@@ -1,61 +1,61 @@
 {
   "images" : [
     {
-      "filename" : "icons8-rakuten-viki-16.png",
+      "filename" : "macvici_bl_16.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
     },
     {
-      "filename" : "icons8-rakuten-viki-32.png",
+      "filename" : "macvici_bl_32 1.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
-      "filename" : "icons8-rakuten-viki-33.png",
+      "filename" : "macvici_bl_32.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
-      "filename" : "icons8-rakuten-viki-64.png",
+      "filename" : "macvici_bl_64.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
     },
     {
-      "filename" : "icons8-rakuten-viki-128.png",
+      "filename" : "macvici_bl_128.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
     },
     {
-      "filename" : "icons8-rakuten-viki-256.png",
+      "filename" : "macvici_bl_256 1.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
     },
     {
-      "filename" : "icons8-rakuten-viki-257.png",
+      "filename" : "macvici_bl_256.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
-      "filename" : "icons8-rakuten-viki-512.png",
+      "filename" : "macvici_bl_512 1.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "icons8-rakuten-viki-513.png",
+      "filename" : "macvici_bl_512.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
-      "filename" : "icons8-rakuten-viki-1024.png",
+      "filename" : "macvici_bl_1024.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"

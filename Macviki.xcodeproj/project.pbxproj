@@ -21,7 +21,7 @@
 /* Begin PBXFileReference section */
 		D916D22B2267870300132D3D /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		D916D22F2267B9B900132D3D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		D9DE8720225A79A40020A582 /* Macviki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Macviki.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9DE8720225A79A40020A582 /* MacViki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacViki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9DE8723225A79A40020A582 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9DE8725225A79A60020A582 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9DE8728225A79A60020A582 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		D9DE8721225A79A40020A582 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D9DE8720225A79A40020A582 /* Macviki.app */,
+				D9DE8720225A79A40020A582 /* MacViki.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,9 +81,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D9DE871F225A79A40020A582 /* Macviki */ = {
+		D9DE871F225A79A40020A582 /* MacViki */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D9DE872E225A79A60020A582 /* Build configuration list for PBXNativeTarget "Macviki" */;
+			buildConfigurationList = D9DE872E225A79A60020A582 /* Build configuration list for PBXNativeTarget "MacViki" */;
 			buildPhases = (
 				D9DE871C225A79A40020A582 /* Sources */,
 				D9DE871D225A79A40020A582 /* Frameworks */,
@@ -93,9 +93,9 @@
 			);
 			dependencies = (
 			);
-			name = Macviki;
+			name = MacViki;
 			productName = NoStory;
-			productReference = D9DE8720225A79A40020A582 /* Macviki.app */;
+			productReference = D9DE8720225A79A40020A582 /* MacViki.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -132,7 +132,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D9DE871F225A79A40020A582 /* Macviki */,
+				D9DE871F225A79A40020A582 /* MacViki */,
 			);
 		};
 /* End PBXProject section */
@@ -355,7 +355,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D9DE872E225A79A60020A582 /* Build configuration list for PBXNativeTarget "Macviki" */ = {
+		D9DE872E225A79A60020A582 /* Build configuration list for PBXNativeTarget "MacViki" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9DE872F225A79A60020A582 /* Debug */,
