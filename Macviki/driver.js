@@ -1,6 +1,7 @@
 ;(function() {
     'use strict'
 
+    // INTERCEPT CONSOLE.LOG
     const oldLog = console.log
     console.log = (...args) => {
         const message = args.map((x) => String(x)).join(' ')
@@ -19,24 +20,25 @@
         }
 
         let playerObserver = null
-        
-        // remove rating display
-        const style = document.createElement('style')
-        style.id = 'macviki-age-hide'
-        style.innerHTML = `
-          .sc-17jko1v-0,
-          .sc-akvsl4-1,
-          .sc-akvsl4-0 {
-            display: none !important;
-          }
-        `
-        document.head.appendChild(style)
 
+        // CSS gegen Rating-Anzeige (16, 18, etc.)
+        if (!document.getElementById('macviki-age-hide')) {
+            const style = document.createElement('style')
+            style.id = 'macviki-age-hide'
+            style.innerHTML = `
+              .sc-17jko1v-0,
+              .sc-akvsl4-1,
+              .sc-akvsl4-0 {
+                display: none !important;
+              }
+            `
+            document.head.appendChild(style)
+        }
 
         function handleWatchMode() {
             console.log("Activating watch mode for Viki")
 
-            // Pause-Overlay dauerhaft killen via CSS
+            // CSS gegen Pause-Overlay
             if (!document.getElementById('macviki-hide-overlays')) {
                 const style = document.createElement('style')
                 style.id = 'macviki-hide-overlays'
@@ -48,18 +50,18 @@
                 document.head.appendChild(style)
             }
 
-            // Falls alter Observer noch läuft, erst stoppen
+            // Falls alter Observer noch läuft → stoppen
             if (playerObserver) {
                 playerObserver.disconnect()
                 playerObserver = null
             }
 
-            // Neuen Observer starten
+            // Neuen Observer starten (überwacht neu gespawnte Player-Elemente)
             playerObserver = new MutationObserver(mutations => {
                 for (const m of mutations) {
                     for (const node of m.addedNodes) {
                         if (node.nodeType === 1) {
-                            // Overlay sicherheitshalber ausblenden
+                            // Overlay weg
                             if (node.classList?.contains("vmp-pause-overlay")) {
                                 node.style.display = "none"
                             }
@@ -70,7 +72,7 @@
                                     'window.webkit.messageHandlers.requestFullscreen.postMessage(null)'
                                 )
                             }
-                            // Falls der Button im neuen DOM-Baum steckt
+                            // Falls im DOM-Baum
                             const fs = node.querySelector?.(".vjs-icon-fullscreen-enter")
                             if (fs) {
                                 fs.setAttribute(
@@ -84,7 +86,7 @@
             })
             playerObserver.observe(document.body, { childList: true, subtree: true })
 
-            // Sofort initial patch versuchen
+            // Sofort initial patch
             const fsButton = document.querySelector(".vjs-icon-fullscreen-enter")
             if (fsButton) {
                 fsButton.setAttribute(
@@ -102,13 +104,32 @@
             if (path.startsWith('/videos/')) {
                 handleWatchMode()
             } else {
-                // raus aus Video → Observer stoppen
                 if (playerObserver) {
                     playerObserver.disconnect()
                     playerObserver = null
                 }
             }
         }
+
+        // --- Extra Observer für Resume-Fall ---
+        const resumeObserver = new MutationObserver(mutations => {
+            if (!location.pathname.startsWith('/videos/')) return
+            for (const m of mutations) {
+                for (const node of m.addedNodes) {
+                    if (node.nodeType === 1) {
+                        if (
+                            node.classList?.contains('vmp-pause-overlay') ||
+                            node.classList?.contains('vjs-icon-fullscreen-enter') ||
+                            node.querySelector?.('.vmp-pause-overlay, .vjs-icon-fullscreen-enter')
+                        ) {
+                            console.log("Player resumed → reinject styles")
+                            handleWatchMode()
+                        }
+                    }
+                }
+            }
+        })
+        resumeObserver.observe(document.body, { childList: true, subtree: true })
 
         // SPA Navigation abfangen
         history.onpopstate = () => handleUrlChange(location.pathname)
