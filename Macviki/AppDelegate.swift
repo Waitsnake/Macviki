@@ -62,6 +62,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         config.userContentController.add(self, name: "onConsoleLog")
         config.userContentController.add(self, name: "requestFullscreen")
         
+        // Beispiel-Regeln (blockt alles mit "ads" im URL)
+        let rules = """
+        [
+            {
+                "trigger": { "url-filter": ".*ads.*" },
+                "action": { "type": "block" }
+            }
+        ]
+        """
+
+        WKContentRuleListStore.default().compileContentRuleList(
+            forIdentifier: "BlockAds",
+            encodedContentRuleList: rules
+        ) { list, error in
+            if let list = list {
+                contentController.add(list)
+            } else if let error = error {
+                print("RuleList Error:", error)
+            }
+        }
+        
         webView = DraggableWebView(frame: window.frame, configuration: config)
         webView.uiDelegate = self
         webView.navigationDelegate = self
