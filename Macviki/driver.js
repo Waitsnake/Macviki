@@ -58,8 +58,8 @@
     console.log = (...args) => {
       const msg = args.join(' ')
       if (msg.includes('VIDEOJS: adserror (Preroll)')) {
-        adPhaseUntil = Date.now() + 10000 // 10 Sekunden aktiv
-        nativeLog('macviki: adPhase triggered for 10s')
+        adPhaseUntil = Date.now() + 5000 // 5 Sekunden aktiv
+        nativeLog('macviki: adPhase triggered for 5s')
       }
       try { window.webkit.messageHandlers.onConsoleLog.postMessage(msg) } catch {}
       nativeLog.apply(console, args)
